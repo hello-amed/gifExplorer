@@ -1,3 +1,5 @@
+---
+
 # gifExplorer
 
 gifExplorer is a web application that allows users to explore, search, and save their favorite GIFs. It uses the Giphy API to fetch trending and search results.
@@ -11,8 +13,6 @@ gifExplorer is a web application that allows users to explore, search, and save 
 ```sh
 npm install
 ```
-
-````
 
 ## Adding the API Key
 
@@ -36,7 +36,6 @@ npm run dev
 
 Enjoy exploring GIFs with gifExplorer!
 
-```
-Please replace `YOUR_API_KEY` with your actual Giphy API key.
-```
-````
+---
+
+Make sure to replace `YOUR_API_KEY` with the actual API key you obtained from the Giphy Developers Portal.
