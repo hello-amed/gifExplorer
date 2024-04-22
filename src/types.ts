@@ -21,3 +21,9 @@ export interface GiphyResponse {
     response_id: string;
   };
 }
+
+export interface FetchParams {
+  limit: number;
+  offset: number;
+  query?: string;
+}

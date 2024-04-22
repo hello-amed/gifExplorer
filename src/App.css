@@ -54,6 +54,19 @@
   transform: scale(1.1);
 }
 
+.card-item.rotate svg {
+  animation: rotate 0.5s linear forwards;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 600px) {
   .card-gallery {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

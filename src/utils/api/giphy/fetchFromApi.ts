@@ -1,5 +1,10 @@
 import { CardItem, GiphyResponse } from "../../../types";
 
+interface FetchParams {
+  limit?: number;
+  offset?: number;
+}
+
 const API_KEY = import.meta.env.VITE_GIPHY_API_KEY;
 
 export const fetchFromApi = async <DataType>(
@@ -12,8 +17,11 @@ export const fetchFromApi = async <DataType>(
   return await response.json();
 };
 
-export const fetchTrendingGifs = async (limit: number = 6) => {
-  const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=${limit}`;
+export const fetchTrendingGifs = async ({
+  limit = 6,
+  offset = 0,
+}: FetchParams) => {
+  const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=${limit}&offset=${offset}`;
   return fetchFromApi<{ data: CardItem[] }>(url);
 };
 

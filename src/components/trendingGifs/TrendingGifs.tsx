@@ -9,6 +9,7 @@ import useLoading from "../../utils/hooks/useLoading";
 import useError from "../../utils/hooks/useError";
 import { useGifState } from "../../utils/hooks/useGifState";
 import { useGifDispatch } from "../../utils/hooks/useGifDispatch";
+import LoadMore from "../loadMore/LoadMore";
 
 const TrendingGifs: React.FC = () => {
   const [gifs, setGifs] = useState<CardItem[]>([]);
@@ -16,13 +17,16 @@ const TrendingGifs: React.FC = () => {
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { savedGifs } = useGifState();
   const dispatch = useGifDispatch();
+  const INCREMENT_GIFS = 3;
+  const INITIAL_OFFSET = 6;
+  const MAX_GIFS = 12;
 
   useEffect(() => {
     const loadTrendingGifs = async () => {
       startLoading();
       try {
         resetError();
-        const responseData = await fetchTrendingGifs();
+        const responseData = await fetchTrendingGifs({});
         const uniqueGifs = removeDuplicates(responseData.data, "id");
         setGifs(uniqueGifs);
       } catch (error) {
@@ -57,6 +61,15 @@ const TrendingGifs: React.FC = () => {
             isSaved={isGifSaved(gif.id)}
           />
         ))}
+      </div>
+      <div className="card-footer">
+        <LoadMore
+          fetchFunction={fetchTrendingGifs}
+          updateParentState={setGifs}
+          initialOffset={INITIAL_OFFSET}
+          increment={INCREMENT_GIFS}
+          maxCount={MAX_GIFS}
+        />
       </div>
     </div>
   );
