@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CardItem } from "../../../types";
 
 interface CardProps {
@@ -9,14 +9,31 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ cardItem, onSave, onUnsave, isSaved }) => {
+  const [isRotating, setIsRotating] = useState(false);
+
+  const handleSaveClick = () => {
+    setIsRotating(true);
+    onSave && onSave();
+  };
+
+  const handleUnsaveClick = () => {
+    setIsRotating(true);
+    onUnsave();
+  };
+
+  const onAnimationEnd = () => {
+    setIsRotating(false);
+  };
+
   return (
-    <div className="card-item">
+    <div className={`card-item ${isRotating ? "rotate" : ""}`}>
       <div className="card-image">
         <img src={cardItem.images.original.url} alt={cardItem.title} />
       </div>
       {isSaved ? (
         <svg
-          onClick={onUnsave}
+          onClick={handleUnsaveClick}
+          onAnimationEnd={onAnimationEnd}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -28,7 +45,8 @@ const Card: React.FC<CardProps> = ({ cardItem, onSave, onUnsave, isSaved }) => {
         </svg>
       ) : (
         <svg
-          onClick={onSave}
+          onClick={handleSaveClick}
+          onAnimationEnd={onAnimationEnd}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
